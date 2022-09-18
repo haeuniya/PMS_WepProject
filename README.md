@@ -1,2 +1,0 @@
-# PMS_WepProject
-ProjectManagementProject_WepProject_JAVA+SPRING+ORACLE
