@@ -1,0 +1,67 @@
+1. 나세찬
+reviewPlan table
+rplanStatus varchar2(50) 넣기
+
+feedback table
+fbStatus varcarh2(50) 넣기
+
+2. 전장호
+member table
+description varchar2(500) 소개글 넣기
+empno pk 로, id를 unique로 중복 막기
+
+3. 박종대
+project table
+PM명을 PM번호로
+
+roadMap table
+로드맵 예산(로드맵이랑 로드맵 예산 합침), 로드맵 달성률
+
+project table
+설비 비용, 자재 비용, 서비스 비용, 간접 비용, 예비비
+
+범위기술서 table 만들기
+prjNo(PK)      VARCHAR2(30)
+scpStmtNo(PK)   VARCHAR2(30)
+scpStmtDate      DATE
+adtnlCntntTitle VARCHAR2(50)
+adtnlCntnt VARCHAR2(1000)
+isApproval VARCHAR2(50)
+
+
+4. 이헌용
+위험관리방안table
+영향도, 위험완화계획 제거
+
+5. 김하은
+member table
+eImportant varchar2(10) 사원중요도 넣기
+
+사원별일정 table
+sname -> schdlName
+세부일정번호 schdlNo pk로
+
+6. 유예지
+
+----------------------
+수정할 거 나중에 더 얘기하기
+토요일까지 저녁까지
+PMS 말고(project01 말고) localhost로 테이블 만들어서 구현
+-----------------------
+대화내용 테이블
+채팅방번호 대화내용 작성자  첨부파일 시간
+1   아   박종대      이
+1   아아   박종대
+1   아아   장호      sysdate
+
+채팅방 테이블
+채팅방번호 참여인원명
+1   예지
+1   장호
+1   박종대
+참여중인시간
+
+셋이서하다가 예지 나갔을 때
+
+채팅방 리스트
+1,2

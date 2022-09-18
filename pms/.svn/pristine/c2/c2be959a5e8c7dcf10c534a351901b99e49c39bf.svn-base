@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pms.a01_Sechan.a03_DAO.rplanDao">
+	
+	<select id="rplanList" resultType="rplan" parameterType="rplan">
+		<!-- select *
+	 	from REVIEWPLAN
+		 where 1=1
+	 	<if test="rplanname != null">
+		 AND rplanname LIKE '%'||#{rplanname}||'%'
+		 </if>
+		 <if test="prjname != null">
+		 AND prjname LIKE '%'||#{prjname}||'%' 
+		 </if> -->
+		 SELECT DISTINCT  r.*,p.*
+		 FROM REVIEWPLAN r , PROJECT p
+		 WHERE r.PRJNO  =#{prjNo}
+		 AND r.PRJNO = p.PRJNO
+		 
+		 
+		 
+	</select>
+	
+	<select id="prjList" resultType="prj" parameterType="prj">
+		select *
+	 	from project
+	 	where 1=1
+	 	<if test="prjName != null">
+		 AND prjName LIKE '%'||#{prjName}||'%'
+		</if>
+		 
+		 
+	</select>
+	
+	  
+	<select id="fbplanList" resultType="fbplan" parameterType="fbplan">
+		select *
+	 	from feedback
+		 where 1=1
+	 	<if test="fbplanname != null">
+		 AND fbplanname LIKE '%'||#{fbplanname}||'%'
+		 </if>
+		 <if test="feedbackname != null">
+		 AND feedbackname LIKE '%'||#{feedbackname}||'%' 
+		 </if>
+	</select>
+	
+	<insert id="insertrplan"  parameterType="rplan">		
+		INSERT INTO REVIEWPLAN values(rplan_seq.nextval,#{rplanname},#{rplanstep},
+		#{clientrequire},#{specialnote},#{requestdate}
+		,#{approvaldate},#{rplanstatus},#{prjname},#{pmname})
+	</insert>
+	
+	<insert id="insertfbplan"  parameterType="fbplan">		
+		INSERT INTO feedback values(fbplan_seq.nextval,#{feedbackname},
+		#{fbplanname},#{fbstartdate},#{fbenddate},#{fbstep},#{feedbackitem},
+		#{fbstatus},#{fbnote},#{pmname}
+		)
+	</insert>
+	
+	
+	<delete id="deleteRplan" parameterType="int">
+		DELETE
+		FROM REVIEWPLAN
+		WHERE RPLANNO = #{rplanno}
+	</delete>	
+	
+	<select id="getRplanDetail" resultType="rplan" parameterType="String">
+		SELECT DISTINCT  r.*,p.*
+		FROM REVIEWPLAN r , PROJECT p
+		WHERE r.RPLANNO = #{rplanNo}
+		AND p.PRJNO = r.PRJNO
+	</select>	
+	
+	<select id="getFbplanDetail" resultType="fbplan" parameterType="String">
+		select *
+		 from feedback
+		 where feedbackno = #{fbplanno}
+	</select>	
+	
+	<update id="updateRplan" parameterType="rplan">
+		UPDATE REVIEWPLAN 
+			SET rplanname =#{rplanname},
+				clientrequire =#{clientrequire},
+				rplanstep = #{rplanstep},		
+				specialnote = #{specialnote}		
+		WHERE rplanno = #{rplanno}
+	</update>
+	
+	<update id="updateRplanStatus" parameterType="rplan">
+		UPDATE REVIEWPLAN 
+			SET rplanstatus = '승인'			
+		WHERE rplanno = #{rplanNo}
+	</update>
+	
+</mapper>

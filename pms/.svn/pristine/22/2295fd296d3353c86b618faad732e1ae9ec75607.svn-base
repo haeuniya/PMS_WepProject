@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		
+		<typeAlias alias="emp" type="pms.a01_Haeun.a04_VO.Emp"/>
+		<typeAlias alias="empfile" type="pms.a01_Haeun.a04_VO.EmpFile"/>
+	    <typeAlias alias="project" type="pms.a01_Haeun.a04_VO.Project"/>
+	    <typeAlias alias="calendar" type="pms.a01_Haeun.a04_VO.Calendar"/>
+
+		<typeAlias alias="rplan" type="pms.a01_Sechan.a04_VO.Reviewplan"/>
+		<typeAlias alias="fbplan" type="pms.a01_Sechan.a04_VO.feedback"/>
+		<typeAlias alias="prj" type="pms.a01_Sechan.a04_VO.project"/>
+		
+		<typeAlias alias="costprj" type="pms.a01_Jongdae.a04_VO.CostPrj"/>
+      	<typeAlias alias="roadmap" type="pms.a01_Jongdae.a04_VO.RoadMap"/>
+      	<typeAlias alias="scopestmt" type="pms.a01_Jongdae.a04_VO.ScopeStatement"/>
+      	<typeAlias alias="hcost" type="pms.a01_Jongdae.a04_VO.HCost"/>
+      	<typeAlias alias="prjhcostlist" type="pms.a01_Jongdae.a04_VO.PrjHCostList"/>
+      	<typeAlias alias="pminfo" type="pms.a01_Jongdae.a04_VO.PMInfo"/>
+      	<typeAlias alias="hcostsum" type="pms.a01_Jongdae.a04_VO.HCostSum"/>
+      	<typeAlias alias="risk" type="pms.a01_Jongdae.a04_VO.Risk"/>
+      	
+		<typeAlias alias="rmplan" type="pms.a01_Heonyong.a04_VO.riskManagementPlan"/>
+		
+    	<typeAlias alias="meetingboard" type="pms.a01_Yeji.a04_VO.MeetingBoard"/>
+	    <typeAlias alias="meetingboardsch" type="pms.a01_Yeji.a04_VO.MeetingBoardFile"/>
+	    <typeAlias alias="meetingboardfile" type="pms.a01_Yeji.a04_VO.MeetingBoardSch"/>
+	    <typeAlias alias="mail" type="pms.a01_Yeji.a04_VO.Mail"/>
+	    <typeAlias alias="outbox" type="pms.a01_Yeji.a04_VO.Outbox"/>
+	    <typeAlias alias="outboxfile" type="pms.a01_Yeji.a04_VO.OutboxFile"/>
+	    <typeAlias alias="outboxsch" type="pms.a01_Yeji.a04_VO.OutboxSch"/>
+	    <typeAlias alias="prjemplist" type="pms.a01_Yeji.a04_VO.PrjEmpList"/>
+	    <typeAlias alias="hrsal" type="pms.a01_Yeji.a04_VO.HRSal"/>
+	    <typeAlias alias="prjfinance" type="pms.a01_Yeji.a04_VO.PrjFinance"/>
+	    <typeAlias alias="prjrate" type="pms.a01_Yeji.a04_VO.PrjRate"/>
+	    <typeAlias alias="prjscore" type="pms.a01_Yeji.a04_VO.PrjScore"/>
+	    <typeAlias alias="important" type="pms.a01_Yeji.a04_VO.Important"/>
+	</typeAliases>
+	<!-- 사용할 sql 파일 처리
+		업무별 기능 분류로 sql 파일을 분리시켜서 처리
+		사원정보의 리스트, 등록, 수정, 삭제, 상세화면 조회 : /EmpMapper.xml
+		게시판의 리스트, 수정, 답글달기, 삭제...			/BoardMapper.xml
+	-->
+	<mappers>   
+      <mapper resource="resource/mapper/a01_HaeunMapper.xml"/>
+      <mapper resource="resource/mapper/a01_HaeunMapper02.xml"/>
+      <mapper resource="resource/mapper/a01_HaeunMapper03.xml"/> 
+
+      <mapper resource="resource/mapper/a01_HeonyongMapper.xml"/>
+       
+      <mapper resource="resource/mapper/a01_JanghoMapper.xml"/>
+      <mapper resource="resource/mapper/a01_JongdaeMapper.xml"/>
+      <mapper resource="resource/mapper/a01_SechanMapper.xml"/>
+
+      <mapper resource="resource/mapper/a01_YejiMapper.xml"/>
+      <mapper resource="resource/mapper/a02_YejiMapper.xml"/>
+      <mapper resource="resource/mapper/a03_YejiMapper.xml"/>
+      
+
+   </mappers>
+</configuration>

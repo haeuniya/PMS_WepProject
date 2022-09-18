@@ -1,0 +1,41 @@
+package pms.a01_Jongdae.a03_DAO;
+
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import pms.a01_Jongdae.a04_VO.Calendar;
+import pms.a01_Jongdae.a04_VO.CostPrj;
+import pms.a01_Jongdae.a04_VO.HCost;
+import pms.a01_Jongdae.a04_VO.HCostSum;
+import pms.a01_Jongdae.a04_VO.PMInfo;
+import pms.a01_Jongdae.a04_VO.PrjHCostList;
+import pms.a01_Jongdae.a04_VO.Risk;
+import pms.a01_Jongdae.a04_VO.ScopeStatement;
+
+@Repository
+public interface CostNScopeDao {
+	public List<CostPrj> getPrjList(CostPrj sch);
+	public CostPrj getPrj(String prjno);
+	public void updateCostPrj(CostPrj upt);
+	
+	
+	public CostPrj getScPrj(String prjno);
+	public List<Calendar> getRoadMapList(String prjno);
+	public List<Calendar> getScRMList(String prjno);
+	
+	public PMInfo getPMInfo(String prjno);
+	
+	public ScopeStatement getScInfo(String prjno);
+	public void yesScopeStmt(String scpStmtNo);
+	public void noScopeStmt(String scpStmtNo);
+	
+	public List<HCost> getHCostList(HCost hc);
+	public List<PrjHCostList> getPrjHCostList(String prjno);
+	public HCostSum getHCostSum(String prjno);
+	public List<Risk> getRiskList(String rplanno);
+	public void insertRisk(Risk ins);
+	public void deleteRisk(String riskNo);
+	public Risk getRiskDetail(String riskNo);
+	public void updateRisk(Risk upt);
+}

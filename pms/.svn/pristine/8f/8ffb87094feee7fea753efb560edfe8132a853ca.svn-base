@@ -1,0 +1,99 @@
+package pms.a01_Haeun.a02_Service;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import pms.a01_Haeun.a03_DAO.HRDao;
+import pms.a01_Haeun.a04_VO.Emp;
+import pms.a01_Haeun.a04_VO.EmpFile;
+import pms.a01_Haeun.a04_VO.HRMail;
+
+@Service
+public class HRService {
+	@Autowired(required=false)
+	private HRDao daoHR;
+	
+	// 직원 검색
+	public List<Emp> getEmpList(Emp sch){
+		return daoHR.getEmpList(sch);
+	}		
+	// 파일서버 정보
+	@Value("${fileupload}")
+	private String path;
+	// 직원 등록
+	public void insertEmp(Emp ins) {
+		MultipartFile mpf = ins.getReport();
+		String fname = mpf.getOriginalFilename();
+		
+		File f = new File(path+fname);
+		
+		try {
+			mpf.transferTo(f);
+			System.out.println("파일업로드 완성");
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		daoHR.insertEmp(ins);
+		daoHR.insertFile(new EmpFile(path,fname));
+	}
+	
+	// 직원 상세 정보
+	public Emp getEmpDetail(String empno) {
+		return daoHR.getDetail(empno);
+	}	
+	// 직원 정보 수정
+	public Emp updateEmp(Emp upt) {
+		daoHR.updateEmp(upt);
+		return daoHR.getDetail(upt.getEmpno());
+	}
+	// 직원 정보 삭제
+	public void deleteEmp(String empno) {
+		daoHR.deleteEmp(empno);
+	}
+	
+	// 컨테이너에 있는 메일 발송 객체 autowiring 처리
+	@Autowired(required = false)
+	private JavaMailSender sender;
+	public String sendMail(HRMail email) {
+		System.out.println("메일발송22");
+		String msg = "메일 발송 성공";
+		MimeMessage mmsg = sender.createMimeMessage(); 
+		try {
+			mmsg.setSubject(email.getTitle());
+			// 수신자 설정
+			mmsg.setRecipient(RecipientType.TO, new InternetAddress(email.getReceiver()));
+			// 내용 설정
+			mmsg.setText(email.getContent());
+			// 발송 처리
+			sender.send(mmsg);
+			System.out.println("메일발송33");
+			msg = "메일 발송 성공";
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+			msg = "메일 발송 에러:" + e.getMessage();
+			System.out.println(msg);
+		} catch(Exception e) {
+			msg = "일반 에러 발생:" + e.getMessage();
+		}
+		System.out.println("메일발송44:"+msg);
+		return msg;
+	}
+	
+}

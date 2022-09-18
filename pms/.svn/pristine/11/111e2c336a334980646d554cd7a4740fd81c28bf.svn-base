@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pms.a01_Yeji.a03_DAO.DashboardDao">
+	<!-- 일정관리 프로젝트별 달성률 (전체 대시보드) -->
+	<select id="getPrjRate" resultType="PrjRate" >
+		SELECT prjno, prjRate
+		FROM project 
+	</select>
+	
+	<!-- 일정관리 프로젝트별 달성률 (각 프로젝트 대시보드) -->
+	<select id="getPrjNRate" resultType="PrjRate" parameterType="string"  >	
+		SELECT prjno, prjRate
+		FROM project 
+		WHERE prjno=#{prjno}
+		
+	</select>
+	
+	<!-- 인적자원관리 프로젝트별 참여하는 사원 수 (전체 대시보드) -->
+	<select id="getPrjHR" resultType="prjEmpList">
+		SELECT prjno, count(*) cnt
+		FROM prjemplist 
+		GROUP BY prjno
+	</select>
+	
+	<!-- 인적자원관리 직책별 사원수 (각 프로젝트 대시보드) -->
+	<select id="getJobCnt" resultType="JobCnt"  parameterType="string">
+		SELECT job, count(*) jobcnt
+		FROM emp e, prjemplist p
+		WHERE e.empno = p.empno
+		AND p.prjno = #{prjno}
+		GROUP BY job
+	</select>
+
+	<!-- 프로젝트별 종합 품질점수(전체 대시보드) -->
+	<select id="getTotScore" resultType="PrjScore">
+		SELECT prjno, ROUND((schdlScore+hrScore+costScore+commuScore)/4) tot
+		FROM project 
+	</select>
+	
+	<!-- 일정관리 품질점수 차트(각 프로젝트 대시보드) -->
+	<select id="getSchdlScore" resultType="PrjScore" parameterType="string">
+		SELECT prjno, schdlScore
+		FROM project
+		WHERE prjno = #{prjno}
+	</select>
+	<!-- 인적자원 품질점수 차트(각 프로젝트 대시보드) -->
+	<select id="getHrScore" resultType="PrjScore" parameterType="string">
+		SELECT prjno, hrScore
+		FROM project
+		WHERE prjno = #{prjno}
+	</select>
+	<!-- 비용관리 품질점수 차트(각 프로젝트 대시보드) -->
+	<select id="getCostScore" resultType="PrjScore" parameterType="string">
+		SELECT prjno, costScore
+		FROM project
+		WHERE prjno = #{prjno}
+	</select>
+	<!-- 의사소통관린 품질점수 차트(각 프로젝트 대시보드) -->
+	<select id="getCommuScore" resultType="PrjScore" parameterType="string">
+		SELECT prjno, commuScore
+		FROM project
+		WHERE prjno = #{prjno}
+	</select>
+	<!-- 품질점수 4개 한번에 -->
+	<select id="get4Score" resultType="PrjScore" parameterType="string">
+		SELECT schdlScore, hrScore, costScore, commuScore
+		FROM project
+		WHERE prjno = #{prjno}
+	</select>
+	
+	<!-- 비용관리 프로젝트별 예산(전체 대시보드) -->
+	<select id="getPrjFinance" resultType="PrjFinance">
+		SELECT prjno, prjfinance 
+		FROM project 
+	</select>
+	
+	<!-- 비용관리 사원별 인건비(각 프로젝트 대시보드) -->
+	<select id="getHRSal" resultType="HRSal"  parameterType="string">
+		SELECT e.ename, e.sal 
+		FROM emp e, PRJEMPLIST p
+		WHERE e.empno = p.empno
+		AND p.prjno = #{prjno}
+	</select>
+	
+	<!-- 팀멤버 리스트 -->
+	<select id="getTeamMember" resultType="TeamMember"  parameterType="string">
+		SELECT e.ename, e.empno
+		FROM emp e , prjemplist p
+		WHERE e.empno = p.empno  
+		AND prjno = #{prjno}
+	</select>
+	
+	<!-- 프로젝트별 시정조치 단계 -->
+	<select id="getRplanStep" resultType="RplanStep"  parameterType="string">
+		SELECT rplanStep, count(*) rplanCnt
+		FROM reviewPlan
+		WHERE prjno = #{prjno}
+		GROUP BY rplanStep
+	</select>
+	
+	<!-- 프로젝트 리스크 상중하 수-->
+	<select id="getRiskDeg" resultType="RiskDeg"  parameterType="string">
+		SELECT riskdeg, count(riskdeg) riskCnt
+		FROM REVIEWPLAN r , RISK r2, PROJECT p 
+		WHERE r.prjno = p.prjno 
+		AND r.rplanno = r2.rplanno 
+		GROUP BY riskdeg
+	</select>
+
+</mapper>
+

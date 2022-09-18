@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pms.a01_Yeji.a03_DAO.MailDao">
+	
+	<select id="totCnt" resultType="outbox" parameterType="outboxsch" >	
+		select count(*)
+		from outbox
+		where 1=1
+		<if test="mailTitle!=null">
+		AND mailTitle LIKE '%'||#{mailTitle, jdbcType=VARCHAR}||'%'
+		</if>
+		
+	</select>
+	
+	<select id="outboxList" resultType="outbox">
+			SELECT *
+			FROM outbox
+			WHERE 1=1
+			<if test="mailTitle!=null">
+			AND mailTitle LIKE '%'||#{mailTitle}||'%'
+			</if>
+			ORDER BY mailRegdte DESC
+	   </select>
+    
+   <insert id="insertOutbox" parameterType="outbox">
+   		insert into outbox (mailNum,receiver,mailTitle,mailContent,mailRegdte) values(outbox_seq.nextval,#{receiver,jdbcType=VARCHAR},#{mailTitle,jdbcType=VARCHAR}, #{mailContent,jdbcType=VARCHAR}, sysdate)
+   </insert>
+   
+   	<insert id="insertFile" parameterType="outboxfile">
+					insert into outboxfile values(outbox_seq.currval,
+					#{mailFilePath}, #{mailFileName}, sysdate,'')
+	</insert>
+   
+   <select id="getOutboxDetail" parameterType="int" resultType="outbox" >
+   		SELECT o.*, obf.mailFileName
+		FROM outbox o, outboxfile obf
+		WHERE o.mailNum = obf.mailNum(+)
+		and o.mailNum = #{mailNum}
+   </select>
+ 
+   
+   	<update id="updateOutbox" parameterType="outbox">
+		UPDATE outbox 
+			SET mailTitle = #{mailTitle},
+				mailContent = #{mailContent}
+		WHERE mailNum = #{mailNum}
+	</update>
+	
+	<delete id="deleteOutbox" parameterType="int">
+		delete
+		from outbox
+		where mailNum = #{mailNum}
+	</delete>
+	
+	<select id="mailCnt" resultType="int">
+		SELECT count(*) FROM outbox
+	</select>
+	
+</mapper>
+

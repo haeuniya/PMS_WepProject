@@ -1,0 +1,9 @@
+# DB 서버 정보
+jdbc.driver=oracle.jdbc.driver.OracleDriver
+jdbc.url=jdbc:oracle:thin:@localhost:1521:xe
+jdbc.user=Project01
+jdbc.pass=1111
+# 파일 업로드 정보
+upload=C:/a01_javaexp/workspace/pms/src/main/webapp/meeting_fileupload/
+fileupload=C:/a01_javaexp/workspace/pms/src/main/webapp/z01_HRFileupload/
+mailupload=C:/a01_javaexp/workspace/pms/src/main/webapp/mail_fileupload/

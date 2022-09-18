@@ -1,0 +1,108 @@
+package pms.a01_Sechan.a01_Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import pms.a01_Sechan.a02_Service.rplanService;
+import pms.a01_Sechan.a04_VO.Reviewplan;
+import pms.a01_Sechan.a04_VO.feedback;
+import pms.a01_Sechan.a04_VO.project;
+
+@Controller
+public class rplanController {
+	@Autowired(required = false)
+	private rplanService service;
+
+//  http://localhost:7080/pms/rplanlist.do
+	@RequestMapping("rplanlist.do")
+	public String rplanlist(Reviewplan sch, Model d) {
+		d.addAttribute("rlist", service.rplanList(sch));
+		System.out.println(sch.getPrjNo());
+		return "WEB-INF\\views\\a01_Sechan\\ReviewPlanView2.jsp";
+	}
+
+//	http://localhost:7080/pms/fbplanlist.do
+	@RequestMapping("fbplanlist.do")
+	public String rplanlist(feedback sch, Model d) {
+		d.addAttribute("fblist", service.fbplanList(sch));
+		return "WEB-INF\\views\\a01_Sechan\\FeedbackView.jsp";
+	}
+
+//	http://localhost:7080/pms/prjlist.do
+	@RequestMapping("prjlist.do")
+	public String prjlist(project sch, Model d) {
+		d.addAttribute("prjlist", service.prjList(sch));
+		return "WEB-INF\\views\\a01_Sechan\\qualityProjectList.jsp";
+	}
+
+	// http://localhost:7080/pms/rplanInsertForm.do
+	@RequestMapping("rplanInsertForm.do")
+	public String rplanInesertForm() {
+		return "WEB-INF\\views\\a01_Sechan\\ReviewPlanInsert.jsp";
+	}
+
+	// http://localhost:7080/pms/fbplanInsertForm.do
+	@RequestMapping("fbplanInsertForm.do")
+	public String fbplanInesertForm() {
+		return "WEB-INF\\views\\a01_Sechan\\Feedbackinsert.jsp";
+	}
+
+	// http://localhost:7080/pms/rplanInsert.do
+	@RequestMapping("rplanInsert.do")
+	public String rplanInsert(Reviewplan ins, Model d) {
+		service.insertrplan(ins);
+		d.addAttribute("isInsert", "Y");
+		return "WEB-INF\\views\\a01_Sechan\\ReviewPlanInsert.jsp";
+	}
+
+	// http://localhost:7080/pms/fbplanInsert.do
+	@RequestMapping("fbplanInsert.do")
+	public String fbplanInsert(feedback ins, Model d) {
+		service.insertfbplan(ins);
+		d.addAttribute("isInsert", "Y");
+		return "WEB-INF\\views\\a01_Sechan\\Feedbackinsert.jsp";
+	}
+
+// http://localhost:7080/pms/ReviewPlanDetail.do
+	@RequestMapping("ReviewPlanDetail.do")
+	public String ReviewPlanDetail(@RequestParam("rplanno") String rplanno, Model d) {
+		d.addAttribute("rplandetail", service.getRplanDetail(rplanno));
+		return "WEB-INF\\views\\a01_Sechan\\ReviewPlanDetail.jsp";
+	}
+
+	// http://localhost:7080/pms/fbPlanDetail.do
+	@RequestMapping("fbPlanDetail.do")
+	public String fbPlanDetail(@RequestParam("feedbackno") String feedbackno, Model d) {
+		d.addAttribute("fbplandetail", service.getFbplanDetail(feedbackno));
+		return "WEB-INF\\views\\a01_Sechan\\FeedbackDetail.jsp";
+	}
+
+	@RequestMapping("deleteRplan.do")
+	public String deleteRplan(@RequestParam("rplanno") String rplanno, Model d) {
+		System.out.println("삭제:" + rplanno);
+		service.deleteRplan(rplanno);
+		d.addAttribute("proc", "del");
+		return "WEB-INF\\views\\a01_Sechan\\ReviewPlanDetail.jsp";
+	}
+	
+	  @RequestMapping("updateRplan.do") public String updateRplan(Reviewplan upt,Model d)
+	  { 
+		  System.out.println("수정####:"+upt.getRplanNo());	  
+		  d.addAttribute("uptrplan",service.updateRplan(upt));
+		  d.addAttribute("proc","upt"); return
+		  "WEB-INF\\views\\a01_Sechan\\ReviewPlanDetail.jsp";
+	   }
+	  
+	  @RequestMapping("updateRplanStatus.do") public String updateRplanStatus(Reviewplan upt, Model d) {
+	  System.out.println("###########수정:"+upt.getRplanNo());
+	  d.addAttribute("uptrplanstatus",service.updateRplanStatus(upt));
+	  d.addAttribute("proc","upt"); d.addAttribute("isCommit", "Y");
+	  System.out.println("수정됨~~~~~~~"); // upt(승인)의 경우와 del(반려)의 경우를 나중에 나눠주셔야 합니다.
+	  return "WEB-INF\\views\\a01_Sechan\\ReviewPlanView2.jsp";
+	  }
+	 
+
+}

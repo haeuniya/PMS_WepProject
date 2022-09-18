@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pms.a01_Jangho.a03_DAO.EmpDao">
+	<select id="checkEmp" parameterType="string" resultType="int">
+		SELECT count(*)
+		FROM emp
+		WHERE id = #{id}
+	</select>
+	<select id="getEmp" parameterType="emp" resultType="emp">
+		SELECT *
+		FROM emp
+		WHERE id = #{id}
+		AND pw = #{pw}
+	</select>
+	<insert id="insertEmp" parameterType="emp">
+		INSERT INTO emp(empno, id, pw, ename, gender, birth, phoneNum, email, auth) values('E' || empno_seq.nextval, #{id}, #{pw}, #{ename}, #{gender}, to_date(#{birthS},'YYYY-MM-DD'), #{phoneNum}, #{email}, 'PM')
+	</insert>
+	
+	<select id="getEmp01" parameterType="string" resultType="emp">
+		SELECT *
+		FROM emp
+		WHERE empno = #{empno}
+	</select>
+	
+	<update id="updateEmp" parameterType="emp">
+		UPDATE emp
+			SET id = #{id},
+				pw = #{pw},
+				ename = #{ename},
+				gender = #{gender},
+				birth = to_date(#{birthS},'YYYY-MM-DD'),
+				eimage = #{fname},
+				address = #{address},
+				phoneNum = #{phoneNum},
+				email = #{email},
+				description = #{description}
+			WHERE empno = #{empno};
+	</update>
+
+</mapper>

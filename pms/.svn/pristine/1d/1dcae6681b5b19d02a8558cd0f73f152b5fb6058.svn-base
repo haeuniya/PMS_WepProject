@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- public List<Project> getProjectList(Project sch); -->
+<mapper namespace="pms.a01_Haeun.a03_DAO.ProjectDao">
+	<select id="getProjectList" resultType="project" parameterType="project">
+		SELECT *
+		FROM PROJECT 
+		WHERE 1=1
+		<if test="prjNo != null">  
+		AND prjNo LIKE '%'||#{prjNo}||'%'
+		</if>
+		<if test="prjName != null">  
+		AND prjName LIKE '%'||#{prjName}||'%'
+		</if>
+		<if test="prjPMNo != null">  
+		AND prjPMNo LIKE '%'||#{prjPMNo}||'%'
+		</if>
+	</select>
+	<select id="getUptFormPrj" resultType="project" parameterType="string">
+		select prjNo, prjName, prjGoal, output, outRange, 
+				to_char(prjStartDate, 'yyyy-mm-dd') prjStartDateS,
+				to_char(prjEndDate, 'yyyy-mm-dd') prjEndDateS,
+				prjFinance, prjPMNo, prjImportant, eqpmnCost, materialCost,
+				serviceCost, indirectCost, rsrvExpns, prjRate, schdlScore, hrScore,
+				costScore, commuScore
+		from project
+		where prjNo = #{prjNo}
+	</select>
+	<update id="updatePrj" parameterType="project">
+		update project
+			set prjName = #{prjName},
+				prjGoal = #{prjGoal},
+				prjImportant = #{prjImportant},
+				output = #{output},
+				outRange = #{outRange},
+				prjStartDate = to_date(#{prjStartDateS}, 'yyyy-mm-dd'),
+				prjEndDate = to_date(#{prjEndDateS}, 'yyyy-mm-dd'),
+				eqpmnCost = #{eqpmnCost},
+				materialCost = #{materialCost},
+				serviceCost = #{serviceCost},
+				indirectCost = #{indirectCost},
+				rsrvExpns = #{rsrvExpns}
+		where prjNo = #{prjNo}
+	</update>
+	
+	<select id="getPrjEmpList" resultType="prjemp" parameterType="string">
+		SELECT p.PRJNAME, p.PRJSTARTDATE, p.PRJENDDATE, e.JOB, e.ename, p.prjno, e.empno
+		FROM PROJECT p, PRJEMPLIST p2, EMP e
+		WHERE p.PRJNO = p2.PRJNO
+		AND p2.EMPNO = e.EMPNO
+		AND p.PRJNO = #{prjNo}
+	</select>
+	<!-- 인적자원 수정(삭제 후 추가) -->
+	<delete id="deletePrjEmp" parameterType="string">
+		DELETE
+		FROM PRJEMPLIST
+		WHERE PRJNO = #{prjNo}
+	</delete>
+	<insert id="insertPrjEmp" parameterType="prjemp">
+		INSERT INTO PRJEMPLIST values(#{empno} , #{prjNo})
+	</insert>
+	<!-- 인적자원 한명 제거 -->
+	<delete id="delEmp" parameterType="prjemp">
+		delete
+		from prjemplist
+		where prjno = #{prjNo}
+		and empno = #{empno}
+	</delete>
+	<select id="getEmpN" resultType="emp" parameterType="string">
+		SELECT e.empno, e.ename, e.job
+		FROM emp e
+		where NOT EXISTS (
+			SELECT 1
+			FROM PRJEMPLIST p
+			WHERE p.empno = e.empno
+			AND p.prjno = #{prjNo}
+		)
+	</select>
+	
+
+	<!-- public void insertProject(Project ins); -->
+	<insert id="insertProject" parameterType="project">
+		INSERT INTO PROJECT(prjNo, prjName, prjStartDate, prjEndDate, prjGoal, 
+		output, outRange, prjPMNo, prjImportant) 
+		VALUES ('P'||prjNo_seq.nextval,#{prjName}, to_date(#{prjStartDateS},'YYYY-MM-DD'), 
+		to_date(#{prjEndDateS},'YYYY-MM-DD'), #{prjGoal},
+		#{output}, #{outRange}, #{prjPMNo}, #{prjImportant})
+	</insert>
+	
+	<!-- public Project getPrjCalendar(String prjNo); -->
+	<select id="getPrjCalendar" parameterType="string" resultType="calendar">
+		SELECT p.prjName, c.*
+		FROM project p, calendar c 
+		WHERE p.prjNo = c.prjNo
+		AND p.prjno = #{prjNo}	
+	</select>
+</mapper>
+

@@ -1,0 +1,29 @@
+package pms.a01_Haeun.a03_DAO;
+// pms.a01_Haeun.a03_DAO.ProjectDao
+
+import java.util.List;
+import org.springframework.stereotype.Repository;
+import pms.a01_Haeun.a04_VO.Project;
+
+@Repository
+public interface ProjectDao {
+	
+	// 프로젝트 검색
+	public List<Project> getProjectList(Project sch);
+
+	// 프로젝트 등록
+	public void insertProject(Project ins);
+
+	
+	// 프로젝트 캘린더
+	public Project getPrjCalendar(String prjNo);
+	
+	/*
+	// 프로젝트 수정
+	public void updatePrj(Project upt);
+	
+	// 프로젝트 삭제
+	public void deletePrj(String prjNo);
+	*/
+	
+}

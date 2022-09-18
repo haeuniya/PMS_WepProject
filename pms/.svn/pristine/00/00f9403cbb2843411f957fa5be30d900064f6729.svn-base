@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="pms.a01_Haeun.a03_DAO.HRDao">
+	<!-- 총건수 -->
+	<select id="totCnt" parameterType="empsch" resultType="int">
+		SELECT count(*)
+		FROM emp
+		WHERE 1=1
+		<if test="ename != null">  
+		AND ename LIKE '%'||#{ename}||'%' 
+		</if>
+		<if test="job != null">  
+		AND job LIKE '%'||#{job}||'%'
+		</if>
+	</select>
+	
+	
+	<!-- 사원 검색 -->
+	<select id="getEmpList" resultType="emp" parameterType="empsch">
+		SELECT *
+		FROM (
+			SELECT rownum cnt, emp.* 
+			FROM EMP 
+			WHERE 1=1
+			<if test="ename != null">  
+			AND ename LIKE '%'||#{ename}||'%' 
+			</if>
+			<if test="job != null">  
+			AND job LIKE '%'||#{job}||'%' 
+			</if>
+		)
+		WHERE cnt BETWEEN #{start} AND #{end}
+	</select>
+	
+	<!-- 사원 상세 정보 -->
+	<!-- public Emp getDetail(String empno); -->
+	<select id="getDetail" parameterType="string" resultType="emp">
+		select *
+		from EMP
+		WHERE empno = #{empno}
+	</select>
+	
+	<!-- 사원 정보 입력 -->
+	<!-- public void insertEmp(Emp ins); -->
+	<insert id="insertEmp" parameterType="emp">
+		INSERT INTO EMP(empno, id, pw, ename, gender, birth, job, auth, deptno, mgr, hiredate, sal, eImportant, address, phoneNum, email)
+			values('E'||empno_seq.nextval, #{id}, #{pw}, #{ename}, #{gender,jdbcType=VARCHAR}, to_date(#{birthS},'YYYY-MM-DD'), 
+			#{job,jdbcType=VARCHAR}, #{auth,jdbcType=VARCHAR}, #{deptno}, #{mgr}, to_date(#{hiredateS},'YYYY-MM-DD'), #{sal}, 
+			#{eImportant,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{phoneNum,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 사원 프로필 사진 파일 업로드 -->
+	<!-- public void insertFile(EmpFile file) -->
+	<insert id="insertFile" parameterType="empfile">
+		INSERT INTO empfile values('E'||empno_seq.currval, #{path}, #{fname}, sysdate, sysdate, '')
+	</insert>
+	<insert id="insertFile01" parameterType="empfile">
+		INSERT INTO empfile values(#{no}, #{path}, #{fname}, sysdate, sysdate, '')
+	</insert>
+	<!-- 사원 프로필 사진 파일명을 DB emp 테이블 eimage 컬럼에 저장 -->
+	<!-- public void updateEimage(String fname) -->
+	<update id="updateEimage01" parameterType="emp">
+		UPDATE emp
+			SET eimage = #{fname}
+			WHERE id = #{id}
+	</update>
+	
+	<!-- 사원 정보 수정 -->
+	<!-- public void updateEmp(Emp upt); -->
+	<update id="updateEmp" parameterType="emp">
+		UPDATE EMP 
+		SET id = #{id},
+			pw = #{pw},
+			ename = #{ename},
+			gender = #{gender},
+			birth = #{birthS},
+			job = #{job},
+			auth = #{auth},
+			deptno = #{deptno},
+			mgr = #{mgr},
+			hiredate = #{hiredateS},
+			sal = #{sal},
+			eImportant = #{eImportant},
+			description = #{description},
+			address = #{address},
+			phoneNum = #{phoneNum},
+			email = #{email}
+		WHERE empno = #{empno}	
+	</update>
+	
+	<!-- 사원 정보 삭제 -->
+	<!-- public void deleteEmp(int empno); -->
+	<delete id="deleteEmp" parameterType="string">
+		DELETE 
+		FROM EMP 
+		WHERE empno = #{empno}
+	</delete>
+	
+</mapper>
+

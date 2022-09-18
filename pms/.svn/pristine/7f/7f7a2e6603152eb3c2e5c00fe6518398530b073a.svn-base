@@ -1,0 +1,707 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    import="java.util.*"
+    %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="path" value="${pageContext.request.contextPath }"/>
+<fmt:requestEncoding value="utf-8"/>     
+<!DOCTYPE html>
+
+<%--
+
+
+ --%>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <title>Dashio - Bootstrap Admin Template</title>
+
+  <!-- Favicons -->
+  <link href="${path}/Dashio/img/favicon.png" rel="icon">
+  <link href="${path}/Dashio/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Bootstrap core CSS -->
+  <link href="${path}/Dashio/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!--external css-->
+  <link href="${path}/Dashio/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="${path}/Dashio/lib/bootstrap-fileupload/bootstrap-fileupload.css" />
+  <link rel="stylesheet" type="text/css" href="${path}/Dashio/lib/bootstrap-datepicker/css/datepicker.css" />
+  <link rel="stylesheet" type="text/css" href="${path}/Dashio/lib/bootstrap-daterangepicker/daterangepicker.css" />
+  <link rel="stylesheet" type="text/css" href="${path}/Dashio/lib/bootstrap-timepicker/compiled/timepicker.css" />
+  <link rel="stylesheet" type="text/css" href="${path}/Dashio/lib/bootstrap-datetimepicker/datetimepicker.css" />
+  <!-- Custom styles for this template -->
+  <link href="${path}/Dashio/css/style.css" rel="stylesheet">
+  <link href="${path}/Dashio/css/style-responsive.css" rel="stylesheet">
+  <link rel="stylesheet" href="${path}/a00_Common/a01_css/empInsert.css">
+  <script src="${path}/a00_Common/a00_com/jquery-3.6.0.js"></script>
+  <script src="${path}/a00_Common/a00_com/jquery.min.js"></script>
+  <script src="${path}/a00_Common/a00_com/jquery-ui.js"></script>
+  <!-- =======================================================
+    Template Name: Dashio
+    Template URL: https://templatemag.com/dashio-bootstrap-admin-template/
+    Author: TemplateMag.com
+    License: https://templatemag.com/license/
+  ======================================================= -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		<%-- 
+		
+		--%>	
+	});
+
+</script>
+</head>
+
+<body>
+  <section id="container">
+   <!-- **********************************************************************************************************************************************************
+        TOP BAR CONTENT & NOTIFICATIONS
+        *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header black-bg">
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+      </div>
+      <!--logo start-->
+      <a href="${path}/indexprjWhole.do" class="logo"><b>AEAP<span>PMS</span></b></a>
+      <!--logo end-->
+      <div class="nav notify-row" id="top_menu">
+        <!--  notification start -->
+        <ul class="nav top-menu">
+          <!-- settings start -->
+          <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+              <i class="fa fa-tasks"></i>
+              </a>
+            <ul class="dropdown-menu extended tasks-bar">
+              <div class="notify-arrow notify-arrow-green"></div>
+              <li>
+                <p class="green">Select Dashboard</p>
+              </li>
+              <li>
+                <a href="${path}/indexprjWhole.do">
+                  <div class="task-info">
+                    <div class="desc">A Whole</div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="${path}/indexprjWhole.do?prjno=P1000">
+                  <div class="task-info">
+                    <div class="desc">Project1</div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="${path}/indexprjWhole.do?prjno=P1001">
+                  <div class="task-info">
+                    <div class="desc">Project2</div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="${path}/indexprjWhole.do?prjno=P1002">
+                  <div class="task-info">
+                    <div class="desc">Project3</div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- settings end -->
+        </ul>
+        <!--  notification end -->
+      </div>
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+          <li><a class="logout" href="${path }/logout.do">Logout</a></li>
+        </ul>
+      </div>
+    </header>
+    <script type="text/javascript">
+    
+    // session 만료 시 로그아웃 
+   var sessionVal = "${emp.id}"
+   if(sessionVal == ""){
+      alert("세션이 만료되어 로그인 페이지로 이동합니다.")
+      location.href="${path}/logout.do"
+   }
+    </script>
+    <!--header end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN SIDEBAR MENU
+        *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><a href="${path}/profile.do"><img src="${path}/z01_HRFileupload/${emp.eimage}" width=160></a></p>
+          <h5 class="centered">${emp.ename}<br>(${emp.empno})</h5>
+          <li class="mt">
+            <a href="${path}/indexprjWhole.do">
+              <i class="fa fa-dashboard"></i>
+              <span>대시보드</span>
+            </a>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-desktop"></i>
+              <span>통합 프로젝트</span>
+            </a>
+            <ul class="sub">
+              <li><a href="${path}/prjList.do">통합 프로젝트 관리</a></li>
+              <li>
+              <c:if test="${emp.auth == 'PM'}"> <a href="${path}/prjInsertForm.do">프로젝트 등록</a> </c:if>
+              </li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="${path}/prjSchdList.do ">
+              <i class="fa fa-calendar-o"></i>
+              <span>일정관리</span>
+            </a>
+          </li>
+           <c:if test="${emp.auth != '사원'}">
+          <li>
+             <a href="${path}/cosPrjList.do">
+              <i class="fa fa-money"></i>
+              <span>재정관리</span>
+            </a>
+          </li>
+         </c:if>
+
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-users"></i>
+              <span>인적자원관리</span>
+            </a>
+            <ul class="sub">
+              <li><a href="${path}/empList.do">전체 사원 관리</a></li>
+              <li><a href="${path}/prjEmpManage.do">프로젝트 사원 관리</a></li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="${path}/prjlist.do">
+              <i class="fa fa-suitcase"></i>
+              <span>품질관리</span>
+            </a>
+          </li>
+          <li>
+            <a href="${path}/mailForm.do">
+              <i class="fa fa-envelope"></i>
+              <span>메일</span>
+            </a>
+          </li>
+          <li>
+            <a href="${path}/chat.do">
+              <i class="fa fa-comments-o"></i>
+              <span>채팅</span>
+              </a>
+          </li>
+          <li>
+            <a href="${path}/boardList.do">
+              <i class="fa fa-edit"></i>
+              <span>회의록</span>
+            </a>
+          </li>
+          <li>
+            <a href="${path}/introduce.do">
+              <i class="fa fa-info-circle"></i>
+              <span>AEAP소개</span>
+            </a>
+          </li>
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--sidebar end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN CONTENT
+        *********************************************************************************************************************************************************** -->
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+      <h3>　<i class="fa fa-angle-right"></i> 인적자원 <i class="fa fa-angle-right"></i> 인적자원 관리 <i class="fa fa-angle-right"></i> 사원 상세정보 </h3>
+      <!--ADVANCED FILE INPUT-->
+      <div class="row mt" id="row mt">
+		<div class="col-lg-12">
+		  <div class="form-panel">
+			<!-- FORM VALIDATION -->
+	        <div class="row mt">
+	          <div class="col-lg-12">
+            	<!-- /tab-pane -->
+                  <div id="edit" class="tab-pane">
+                    <div class="row">
+                      <div class="col-lg-8 col-lg-offset-2 detailed">
+                        <h4 class="mb">Personal Information</h4>
+                        <form class="form-horizontal" name="empForm" id="form" enctype="multipart/form-data" method="post">
+	                        <div class="form-group last">
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">사원번호</label>
+	                            <div class="col-lg-6">
+	                              <input type="text" id="empno" name="empno" class="form-control"
+	                              	value="${empDetail.empno}" readonly>
+	                              <input type="hidden" id="no" name="no" class="form-control"
+	                              	value="${empDetail.empno}">
+	                              	<input type="hidden" id="content" name="content" class="form-control">
+	                              	
+	                            </div>
+	                          </div>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">아이디</label>
+	                            <div class="col-lg-6">
+	                            	<div class="form-inline">
+	                              		<input type="text" id="id" name="id" class="form-control"
+	                              			value="${empDetail.id}">
+	                              		<input type="button" class="btn btn-theme03" name="idDuplConfirm" value="중복 확인">
+	                              		<input type="hidden" name="idConfirm" value="idCheck">
+	                              		<span class="help-block">* 아이디를 8자 이상, 16자 이하로 입력해주세요.</span>
+	                              		<h5 id="idMsg">　</h5>
+	                              	</div>
+	                            </div>
+	                          </div>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">비밀번호</label>
+	                            <div class="col-lg-6">
+	                              	<input type="password" id="pw" name="pw" class="form-control"
+	                             	 	value="${empDetail.pw}">
+	                          	 	<span class="help-block">* 비밀번호를 8자 이상, 16자 이하로 입력해주세요.</span>
+	                          	 	<h5 id="pwMsg">　</h5>
+	                            </div>
+	                            <button class="btn btn-round btn-default" type="button" onclick="mailProc()"><img src="${path}/a00_Common/a01_css/email.png" alt="" style="width:20px; height:20px"></button>
+	                          </div>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">비밀번호 확인</label>
+	                            <div class="col-lg-6">
+	                              <input type="password" id="pw_confirm" name="pw_confirm" class="form-control"
+	                              	value="${empDetail.pw}">
+	                              <span class="help-block">* 위 비밀번호와 같은 값을 입력해주세요.</span>
+	                              <h5 id="pw_confirmMsg">　</h5>
+	                            </div>
+	                          </div>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">이름</label>
+	                            <div class="col-lg-6">
+	                              <input type="text" id="ename" name="ename" class="form-control"
+	                              	value="${empDetail.ename}">
+	                            </div>
+	                          </div>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">성별</label>
+	                            <div class="col-lg-6">
+	                            	<input type="radio" id="gender" name="gender" value="남자" 
+	                            	<c:if test="${empDetail.gender eq '남자' }">checked</c:if>/> 남자　
+									<input type="radio" name="gender" value="여자"
+									<c:if test="${empDetail.gender eq '여자' }">checked</c:if>/> 여자
+	                            </div>
+	                          </div>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">생년월일</label>
+	                            <div class="col-lg-6">
+	                              <input type="date" id="birthS" name="birthS" class="form-control"
+	                              	value="<fmt:formatDate value="${empDetail.birth}" pattern="yyyy-MM-dd"/>"/>
+	                            </div>
+	                          </div>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">직책</label>
+	                            <div class="col-lg-6">
+	                              <select name="job">
+			                        <option value="사원" <c:if test="${empDetail.job eq '사원' }">selected</c:if>>사원</option>
+			                        <option value="대리" <c:if test="${empDetail.job eq '대리' }">selected</c:if>>대리</option>
+			                        <option value="과장" <c:if test="${empDetail.job eq '과장' }">selected</c:if>>과장</option>
+			                        <option value="PM" <c:if test="${empDetail.job eq 'PM' }">selected</c:if>>PM</option>
+			                        <option value="임원" <c:if test="${empDetail.job eq '임원' }">selected</c:if>>임원</option>
+			                      </select>
+	                            </div>
+	                          </div>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">권한</label>
+	                            <div class="col-lg-6">
+	                              <select name="auth">
+			                        <option value="사원" <c:if test="${empDetail.auth eq '사원' }">selected</c:if>>사원</option>
+			                        <option value="PM" <c:if test="${empDetail.auth eq 'PM' }">selected</c:if>>PM</option>
+			                        <option value="임원" <c:if test="${empDetail.auth eq '임원' }">selected</c:if>>임원</option>
+			                      </select>
+	                            </div>
+	                          </div>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">부서</label>
+	                            <div class="col-lg-6">
+	                              <select name="deptno">
+			                        <option value="10" <c:if test="${empDetail.deptno eq '10' }">selected</c:if>>IT 사업부</option>
+			                        <option value="20" <c:if test="${empDetail.deptno eq '20' }">selected</c:if>>백엔드 개발</option>
+			                        <option value="30" <c:if test="${empDetail.deptno eq '30' }">selected</c:if>>프론트엔드 개발</option>
+			                      </select>
+	                            </div>
+	                          </div>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">관리자번호</label>
+	                            <div class="col-lg-6">
+	                              <input type="text" id="mgr" name="mgr" class="form-control"
+	                              	value="${empDetail.mgr}">
+	                            </div>
+	                          </div>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">입사일</label>
+	                            <div class="col-lg-6">
+	                              <input type="date" id="hiredateS" name="hiredateS" class="form-control"
+	                              	value="<fmt:formatDate value="${empDetail.hiredate}" pattern="yyyy-MM-dd"/>">
+	                            </div>
+	                          </div>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">연봉</label>
+	                            <div class="col-lg-6">
+	                              <input type="text" id="sal" name="sal" class="form-control"
+	                              	value="${empDetail.sal}">
+	                            </div>
+	                          </div>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">중요도</label>
+	                            <div class="col-lg-6">
+	                              <select name="eImportant">
+			                        <option value="상" <c:if test="${empDetail.eImportant eq '상' }">selected</c:if>>상</option>
+			                        <option value="중" <c:if test="${empDetail.eImportant eq '중' }">selected</c:if>>중</option>
+			                        <option value="하" <c:if test="${empDetail.eImportant eq '하' }">selected</c:if>>하</option>
+			                      </select>
+	                            </div>
+	                          </div>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">프로필 사진</label>
+	                            <div class="col-lg-6">
+	                              <input type="file" id="eimage" name="report" class="file-pos">
+	                            </div>
+	                          </div>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">소개글</label>
+	                            <div class="col-lg-6">
+	                              <input type="text" id="description" name="description" class="form-control"
+	                              	value="${empDetail.description}">
+	                            </div>
+	                          </div>
+	                          
+	                          <br><br>
+	                                                                                    
+	                          <h4 class="mb">Contact Information</h4>
+	                          <br>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">주소</label>
+	                            <div class="col-lg-6">
+	                              <input type="text" id="address" name="address" class="form-control"
+	                              	value="${empDetail.address}">
+	                            </div>
+	                          </div>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">연락처</label>
+	                            <div class="col-lg-6">
+	                              <input type="text" id="phoneNum" name="phoneNum" class="form-control"
+	                              	value="${empDetail.phoneNum}">
+	                            </div>
+	                          </div>
+	                          <div class="form-group">
+	                            <label class="col-lg-2 control-label">이메일</label>
+	                            <div class="col-lg-6">
+	                              <input type="text" id="email" name="email" class="form-control"
+	                              	value="${empDetail.email}">
+	                            </div>
+	                          </div>
+	                          
+	                        </div>
+                      	  </form>
+                          <center>
+                            <button class="btn btn-Default" type="button" onclick="updateProc()">수정</button>
+                            <button class="btn btn-theme04" type="button" onclick="deleteProc()">삭제</button>
+                            <button class="btn btn-theme" type="button" onclick="goMain()">메인화면</button>
+                          <center>
+                      </div>                                                   
+                    </div>
+                    <!-- /col-lg-8 -->
+                  </div>
+                  <!-- /row -->
+                </div>
+                <!-- /tab-pane -->
+          	  </div>
+          	<!-- /col-lg-12 -->
+          </div>
+        
+		            </div>
+		            <!-- /form-panel -->
+		          </div>
+		          <!-- /col-lg-12 -->
+		        
+
+        <!-- row -->
+        
+        <!-- row -->
+      </section>
+      <!-- /wrapper -->
+    </section>
+    <!-- /MAIN CONTENT -->
+    <!--main content end-->
+    <!--footer start-->
+    <footer class="site-footer">
+      <div class="text-center">
+        <p>
+          &copy; Copyrights <strong>Dashio</strong>. All Rights Reserved
+        </p>
+        <div class="credits">
+          <!--
+            You are NOT allowed to delete the credit link to TemplateMag with free version.
+            You can delete the credit link only if you bought the pro version.
+            Buy the pro version with working PHP/AJAX contact form: https://templatemag.com/dashio-bootstrap-admin-template/
+            Licensing information: https://templatemag.com/license/
+          -->
+          Created with Dashio template by <a href="https://templatemag.com/">TemplateMag</a>
+        </div>
+        <a href="advanced_form_components.html#" class="go-top">
+          <i class="fa fa-angle-up"></i>
+          </a>
+      </div>
+    </footer>
+    <!--footer end-->
+  </section>
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script type="text/javascript">
+  	$(document).ready(function(){
+		$("[name=idDuplConfirm]").click(function(){
+			$.ajax({
+		    	url:"${path}/hasEmp.do",
+		    	data:"id=" + $("[name=id]").val(),
+		    	dataType:"json",
+		    	success:function(data){
+		    		console.log(data)
+		    		if(data.hasEmp){
+		    			alert("이미 존재하는 아이디 입니다!\n다른 아이디를 입력하세요.")
+		    			$("[name=id]").val("").focus();
+		    			$("#idMsg").text("　");
+		    		}else if($("[name=id]").val() == ""){
+		    			alert("아이디를 입력하세요.")
+		    			$("[name=id]").focus();
+		    			$("#idMsg").text("　");
+		    		}else{
+		    			alert("사용 가능한 아이디 입니다!")
+		    			$("[name=idConfirm]").val("idCheck");
+		    		}
+		    		
+		    	},
+		    	error:function(err){
+		    		console.log(err)
+		    	}
+			});
+		})
+		
+		$("[name=id]").keyup(function(){
+			$("[name=idConfirm]").val("idUncheck");
+			var idVal = $(this).val() 
+			if(idVal.length>=8 && idVal.length<=16){
+				$("#idMsg").text("유효한 아이디 입니다.").css("color","green")
+			} else {
+				$("#idMsg").text("유효하지 않은 아이디 입니다.").css("color","red")	  
+			}
+		});
+		$("[name=pw]").keyup(function(){
+			var pwVal = $(this).val() 
+			var pw_confirmVal=$("[name=pw_confirm]").val()
+			if(pwVal.length>=8 && pwVal.length<=16){
+				$("#pwMsg").text("유효한 비밀번호 입니다.").css("color","green")
+			} else {
+				$("#pwMsg").text("유효하지 않은 비밀번호 입니다.").css("color","red")
+			}
+			if(pw_confirmVal.length != 0 && pw_confirmVal != pwVal){
+				$("#pw_confirmMsg").text("비밀번호와 일치하지 않습니다.").css("color","red")
+			}
+			if(pw_confirmVal.length != 0 && pw_confirmVal == pwVal){
+				$("#pw_confirmMsg").text("비밀번호와 일치합니다.").css("color","green")
+				if(!(pw_confirmVal.length>=8 && pw_confirmVal.length<=16)){
+					$("#pw_confirmMsg").text("유효하지 않은 비밀번호 입니다.").css("color","red")
+				}
+			}
+		});
+		$("[name=pw_confirm]").keyup(function(){
+			var pwVal = $("[name=pw]").val()
+			var pw_confirmVal=$(this).val() 
+			if(pw_confirmVal == pwVal){
+				if(pw_confirmVal.length>=8 && pw_confirmVal.length<=16){
+					$("#pw_confirmMsg").text("비밀번호와 일치합니다.").css("color","green")
+				} else {
+					$("#pw_confirmMsg").text("유효하지 않은 비밀번호 입니다.").css("color","red")
+				}
+			} else {
+				$("#pw_confirmMsg").text("비밀번호와 일치하지 않습니다.").css("color","red")	  
+			}
+		});
+		
+	})
+  
+  	// 메인화면으로 돌가가는 버튼 이벤트
+  	function goMain(){
+  		location.href="${path}/empList.do";
+  	}  	
+  	// 수정 버튼 이벤트
+  	function updateProc(){
+  		if(confirm("수정하시겠습니까?")){
+  			
+  		  var idVal = $("[name=id]").val();
+  	      var idConfirmVal = $("[name=idConfirm]").val();
+  	      var pwVal = $("[name=pw]").val();
+  	      var pw_confirmVal = $("[name=pw_confirm]").val();
+  	      var enameVal = $("[name=ename]").val();
+  	      var genderVal = $("[name=gender]").val();
+  	      var birthVal = $("[name=birthS]").val();
+  	      var jobVal = $("[name=job]").val();
+  		  var authVal = $("[name=auth]").val();
+  		  var deptnoVal = $("[name=deptno]").val();
+  		  var hiredateVal = $("[name=hiredateS]").val();
+  		  var salVal = $("[name=sal]").val();
+  		  var eImportantVal = $("[name=eImportant]").val();
+  		  var emailVal = $("[name=email]").val();
+  		  var emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+  	      if(idVal == ""){
+  	          alert("아이디를 입력하세요.");
+  	          $("[name=id]").focus();
+  	          return;
+  	      }
+  	      if(!(idVal.length>=8 && idVal.length<=16)){
+  	    	  alert("유효하지 않은 아이디 입니다.");
+  	    	  $("[name=id]").focus();
+  	    	  return;
+  	      }
+  	      if(idConfirmVal == "idUncheck"){
+  	    	  alert("아이디를 중복 확인 하세요.")
+  	    	  return;
+  	      }
+  	      
+  	      if(pwVal == ""){
+  	          alert("비밀번호를 입력하세요.");
+  	          $("[name=pw]").focus();
+  	          return;
+  	      }
+  	      if(!(pwVal.length>=8 && pwVal.length<=16)){
+  		      alert("유효하지 않은 비밀번호 입니다.");
+  		      $("[name=pw]").focus();
+  		      return;
+  		  }
+  	      if(pw_confirmVal == ""){
+  	          alert("비밀번호 확인을 입력하세요.");
+  	          $("[name=pw_confirm]").focus();
+  	          return;
+  	      }
+  	      if(pw_confirmVal != pwVal){
+  		      alert("비밀번호 확인이 비밀번호와 일치하지 않습니다.");
+  		      $("[name=pw_confirm]").focus();
+  		      return;
+  		  }
+  	      
+  	      if(enameVal == ""){
+  	         alert("이름을 입력하세요.");
+  	         $("[name=ename]").focus();
+  	         return;
+  	      }
+  	      if(genderVal == ""){
+  	         alert("성별을 선택하세요.");
+  	         $("[name=gender]").focus();
+  	         return;
+  	      }
+  	      if(birthVal == ""){
+  	         alert("생년월일을 선택하세요.");
+  	         $("[name=birth]").focus();
+  	         return;
+  	      }
+  		  if(jobVal == ""){
+  		     alert("직책을 선택하세요");
+  		     $("[name=job]").focus();
+  		     return;
+  		  }
+  		  if(authVal == ""){
+  		     alert("권한을 선택하세요");
+  		     $("[name=auth]").focus();
+  		     return;
+  		  }
+  		  if(deptnoVal == ""){
+  		     alert("부서를 선택하세요");
+  		     $("[name=deptno]").focus();
+  		     return;
+  		  }
+  		  if(hiredateVal == ""){
+  		     alert("입사일을 선택하세요");
+  		     $("[name=hiredateS]").focus();
+  		     return;
+  		  }
+  		  if(salVal == ""){
+  			  alert("연봉을 입력하세요");
+  			  $("[name=sal]").focus();
+  			  return;
+  		  }
+  		  if(eImportantVal == ""){
+  			  alert("중요도를 선택하세요");
+  			  $("[name=eImportant]").focus();
+  			  return;
+  		  }
+  		  if(emailVal == ""){
+  			  alert("이메일을 입력하세요");
+  			  $("[name=email]").focus();
+  			  return;
+  		  }
+  		  if(!emailVal.match(emailPattern)){
+  				alert("이메일 형식이 올바르지 않습니다.")
+  				$("[name=email]").focus();
+  				return
+  		  }
+  			$("form").attr("action", "${path}/updateEmp.do");
+  			$("form").submit();
+  			alert("수정 성공!")
+  		  }
+  		
+  	}  	
+  	// 삭제 버튼 이벤트
+  	function deleteProc(){
+  		if(confirm("삭제하시겠습니까?")){
+  			$("form").attr("action", "${path}/deleteEmp.do");
+  			//location.href="${path}/empDelete.do?empno="+empno
+  			$("form").submit();
+  			alert("삭제 성공!\n조회 리스트화면으로 이동합니다.")
+  		}
+  	}
+    // 메일 발송
+  	function mailProc(){
+		if(confirm("임시 ID/PW를 발송 처리하시겠습니까?")){
+			$("[name=email]").val($("[name=email]").val())
+			$("[name=ename]").val($("[name=ename]").val()+"님의 임시 아이디와 비밀번호")
+			$("[name=content]").val("사원 등록 되셨습니다 \n\n 임시 아이디 : "+$("[name=id]").val() 
+					+ "\n 임시 비밀번호 : " + $("[name=pw]").val()
+					+ "\n\n 로그인 후 아이디와 비밀번호를 변경해주세요");
+		}
+	  $("form").attr("action", "${path}/mailFormHR.do")
+	  $("form").submit();
+  	}
+	  	
+	
+	  
+  </script>
+  <script src="${path}/Dashio/lib/jquery/jquery.min.js"></script>
+  <script src="${path}/Dashio/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script class="include" type="text/javascript" src="${path}/Dashio/lib/jquery.dcjqaccordion.2.7.js"></script>
+  <script src="${path}/Dashio/lib/jquery.scrollTo.min.js"></script>
+  <script src="${path}/Dashio/lib/jquery.nicescroll.js" type="text/javascript"></script>
+  <!--common script for all pages-->
+  <script src="${path}/Dashio/lib/common-scripts.js"></script>
+  <!--script for this page-->
+  <script src="${path}/Dashio/lib/jquery-ui-1.9.2.custom.min.js"></script>
+  <script type="text/javascript" src="${path}/Dashio/lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+  <script type="text/javascript" src="${path}/Dashio/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+  <script type="text/javascript" src="${path}/Dashio/lib/bootstrap-daterangepicker/date.js"></script>
+  <script type="text/javascript" src="${path}/Dashio/lib/bootstrap-daterangepicker/daterangepicker.js"></script>
+  <script type="text/javascript" src="${path}/Dashio/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+  <script type="text/javascript" src="${path}/Dashio/lib/bootstrap-daterangepicker/moment.min.js"></script>
+  <script type="text/javascript" src="${path}/Dashio/lib/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+  <script src="${path}/Dashio/lib/advanced-form-components.js"></script>
+
+</body>
+
+</html>

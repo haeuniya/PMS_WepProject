@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+#row mt{
+	display:inline;
+}
+
+/*
+#eemail{
+	display:inline;
+	width:30%;
+}
+*/
+
+.form-group{
+	display:inline;
+}

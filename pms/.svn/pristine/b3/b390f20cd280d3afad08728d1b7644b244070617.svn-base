@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="pms.a01_Haeun.a03_DAO.HRDao">
+	<!-- 직원 검색 -->
+	<select id="getEmpList" resultType="emp" parameterType="emp">
+		SELECT * 
+		FROM EMP 
+		WHERE 1=1
+		<if test="ename != null">  
+		AND ename LIKE '%'||#{ename}||'%' 
+		</if>
+		<if test="job != null">  
+		AND job LIKE '%'||#{job}||'%' 
+		</if>
+	</select>
+	
+	<!-- 직원 상세 정보 -->
+	<!-- public Emp getDetail(String empno); -->
+	<select id="getDetail" parameterType="string" resultType="emp">
+		select *
+		from EMP
+		WHERE empno = #{empno}	
+	</select>
+	
+	<!-- 직원 정보 입력 -->
+	<!-- public void insertEmp(Emp ins); -->
+	<insert id="insertEmp" parameterType="emp">
+		INSERT INTO EMP values('E'||empno_seq.nextval, #{id}, #{pw}, #{ename}, #{eimage,jdbcType=VARCHAR}, to_date(#{birthS},'YYYY-MM-DD'), 
+		#{job,jdbcType=VARCHAR}, #{mgr}, sysdate, #{sal}, #{phoneNum,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
+		#{email,jdbcType=VARCHAR}, #{auth,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{eImportant,jdbcType=VARCHAR} ,#{deptno,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 직원 (사진)파일 업로드 -->
+	<!-- public void insertFile(EmpFile file) -->
+	<insert id="insertFile" parameterType="empfile">
+		insert into empfile values('E'||empno_seq.currval,
+		#{path}, #{fname}, sysdate, sysdate, '')
+	</insert>	
+	
+	<!-- 직원 정보 수정 -->
+	<!-- public void updateEmp(Emp upt); -->
+	<update id="updateEmp" parameterType="emp">
+		UPDATE EMP 
+		SET deptno = #{deptno},
+			job = #{job},
+			sal = #{sal},
+			auth = #{auth},
+			address = #{address},
+			phoneNum = #{phoneNum},
+			email = #{email}
+		WHERE empno = #{empno}	
+	</update>
+	
+	<!-- 직원 정보 삭제 -->
+	<!-- public void deleteEmp(int empno); -->
+	<delete id="deleteEmp" parameterType="string">
+		DELETE 
+		FROM EMP 
+		WHERE empno = #{empno}
+	</delete>
+</mapper>
+

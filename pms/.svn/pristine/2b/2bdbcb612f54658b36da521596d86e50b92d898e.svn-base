@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pms.a01_Yeji.a03_DAO.DashboardDao">
+	<!-- 일정관리 프로젝트별 달성률 (전체 대시보드) -->
+	<select id="getPrjRate" resultType="PrjRate" >
+		SELECT prjno, prjRate
+		FROM project 
+	</select>
+	
+	<!-- 일정관리 프로젝트별 달성률 (각 프로젝트 대시보드) -->
+	<select id="getPrjNRate" resultType="PrjRate" parameterType="string"  >	
+		SELECT prjRate
+		FROM project 
+		WHERE prjno=#{prjno}
+		
+	</select>
+	
+	<!-- 인적자원관리 프로젝트별 참여하는 사원 수 (전체 대시보드) -->
+	<select id="getPrjHR" resultType="prjEmpList">
+		SELECT prjno, count(*) cnt
+		FROM prjemplist 
+		GROUP BY prjno
+	</select>
+	
+	<!-- 인적자원관리 프로젝트 참여인원 중요도 (각 프로젝트 대시보드) -->
+	<select id="getImportant" resultType="Important"  parameterType="string">
+		SELECT ename, empno, eImportant
+		FROM emp e, prjemplist pe
+		WHERE prjno=#{prjno}
+		AND e.empno = pe.empno
+	</select>
+	
+	<!-- 프로젝트별 종합 품질점수(전체 대시보드) -->
+	<select id="getTotScore" resultType="PrjScore">
+		SELECT prjno, ROUND((schdlScore+hrScore+costScore+commuScore)/4) tot
+		FROM project 
+	</select>
+	
+	<!-- 일정관리 품질점수 차트(각 프로젝트 대시보드) -->
+	<select id="getSchdlScore" resultType="PrjScore" parameterType="string">
+		SELECT schdlScore
+		FROM project
+		WHERE prjno = #{prjno}
+	</select>
+	<!-- 인적자원 품질점수 차트(각 프로젝트 대시보드) -->
+	<select id="getHrScore" resultType="PrjScore" parameterType="string">
+		SELECT hrScore
+		FROM project
+		WHERE prjno = #{prjno}
+	</select>
+	<!-- 비용관리 품질점수 차트(각 프로젝트 대시보드) -->
+	<select id="getCostScore" resultType="PrjScore" parameterType="string">
+		SELECT costScore
+		FROM project
+		WHERE prjno = #{prjno}
+	</select>
+	<!-- 의사소통관린 품질점수 차트(각 프로젝트 대시보드) -->
+	<select id="getCommuScore" resultType="PrjScore" parameterType="string">
+		SELECT commuScore
+		FROM project
+		WHERE prjno = #{prjno}
+	</select>
+	
+	<!-- 비용관리 프로젝트별 예산(전체 대시보드) -->
+	<select id="getPrjFinance" resultType="PrjFinance">
+		SELECT prjno, prjfinance 
+		FROM project 
+	</select>
+	
+	<!-- 비용관리 사원별 인건비(각 프로젝트 대시보드) -->
+	<select id="getHRSal" resultType="HRSal"  parameterType="string">
+		SELECT e.ename, e.sal 
+		FROM emp e, PRJEMPLIST p, scopstmt s
+		WHERE e.empno = p.empno
+		AND p.prjno = #{prjno}
+		AND p.prjno = s.prjno
+		and s.isapproval = '승인' 
+	</select>
+</mapper>
+

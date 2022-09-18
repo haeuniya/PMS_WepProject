@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- pms.a01_Haeun.a03_DAO.CalendarDao -->
+<!-- public List<Calendar> getCalList(); -->
+<mapper namespace="pms.a01_Haeun.a03_DAO.CalendarDao">
+
+	<resultMap type="calendar" id="calResult">
+		<result column="start1" property="start"/>
+		<result column="end1" property="end"/>
+	</resultMap>
+	
+	<select id="getCalList" resultMap="calResult" parameterType="string">
+		select * from calendar
+		where prjNo = #{prjNo}
+	</select> 
+	
+	<!-- 로드맵 기간 -->
+	<!-- public int rmpPeriod(Calendar period); -->
+	<update id="getRmPeriod" parameterType="calendar">
+		UPDATE calendar a
+		SET a.RMPERIOD =
+		(SELECT to_date(END1,'yyyy-mm-dd')-to_date(START1,'yyyy-mm-dd')+1 rm
+		FROM CALENDAR b
+		WHERE a.id = b.id)
+	</update>	
+	<insert id="insertCalendar" parameterType="calendar" >
+		insert into calendar (id,title,start1,end1,content,borderColor,
+		backgroundColor,textColor,allDay,prjNo) 
+		values(cal_seq.nextval,#{title},#{start},
+		#{end},#{content},null,#{backgroundColor},#{textColor},
+		#{allDay},#{prjNo})				
+	</insert>			
+	<update id="updateCalendar" parameterType="calendar">
+	 UPDATE calendar
+	    SET title = #{title},
+	        START1 = #{start},
+	        end1 = #{end},
+	        content = #{content},
+	        backgroundcolor=#{backgroundColor},
+	        textcolor=#{textColor},
+	        allday=#{allDay}
+	   WHERE id = #{id}
+	</update> 	
+	<delete id="deleteCalendar" parameterType="int" >
+	   DELETE FROM calendar
+	   WHERE id= #{id}
+	</delete>  	
+	
+	
+	<!-- 로드맵 추가 전 -->
+	<!-- 
+	<select id="getCalList" resultMap="calResult">
+		select * from calendar
+	</select> 
+	
+	<insert id="insertCalendar" parameterType="calendar" >
+		insert into calendar values(cal_seq.nextval,#{title},#{start},
+			#{end},#{content},null,#{backgroundColor},#{textColor},
+			#{allDay})				
+	</insert>	
+		
+	<update id="updateCalendar" parameterType="calendar">
+	 UPDATE calendar
+	    SET title = #{title},
+	        START1 = #{start},
+	        end1 = #{end},
+	        content = #{content},
+	        backgroundcolor=#{backgroundColor},
+	        textcolor=#{textColor},
+	        allday=#{allDay}
+	   WHERE id = #{id}
+	</update> 
+	
+	<delete id="deleteCalendar" parameterType="int" >
+	   DELETE FROM calendar
+	   WHERE id= #{id}
+	</delete>  	
+	
+	 -->
+ 	
+
+</mapper>
+

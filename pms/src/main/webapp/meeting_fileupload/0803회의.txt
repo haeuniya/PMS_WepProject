@@ -1,0 +1,13 @@
+1. 프로젝트 리스트는 hover table로
+2. 삭제는 Components - Multiple File upload - Delete button
+3. 취소는 회색 예지씨 걸로
+4. 등록 Components - Buttons - Theme
+5. 수정 Components - Buttons - Default
+6. 승인  Components - Buttons - Success
+7. 초기화 Components - Buttons - Theme02
+8. 닫기창(close) 회색 예지씨 걸로
+9. 페이지위에 경로 쓰기(>를 모두 아이콘으로)
+10. 페이지 위에 경로 클릭하면 해당 경로로 이동하는 함수
+11. 좌측 네비게이션바 사원명 밑에 직책명(권한명) 표기
+12. 관리상세페이지에서 프로젝트명을 경로보다 한 단계 작게 좌상단에 표시(<h3> => <h4>)
+13. 페이징처리 버튼 Data Tables - Advanced Table 로 class 설정, 구현은 강사님께 배운 방법으로 하기, 중앙 정렬

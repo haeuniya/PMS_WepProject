@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pms.a01_Yeji.a03_DAO.MeetingBoardDao">
+	
+	<!-- public List<Board> totCnt(BoardSch sch); 처리해주는 mapper -->
+	<select id="totCnt" parameterType="meetingboardsch">	
+		select count(*)
+		from meetingboard
+		where 1=1
+		<if test="recordTitle!=null">
+		AND recordTitle LIKE '%'||#{recordTitle, jdbcType=VARCHAR}||'%'
+		</if>
+		<if test="ename!=null">
+		AND writer LIKE '%'||#{writer, jdbcType=VARCHAR}||'%'
+		</if>
+	</select>
+	
+	<select id="boardList" resultType="meetingboard" parameterType="meetingboardsch">
+     	select *
+     	from (
+	     	SELECT rownum cnt, level, mb.*
+			FROM meetingboard mb
+			WHERE 1=1
+			<if test="recordTitle!=null">
+			AND recordTitle LIKE '%'||#{recordTitle, jdbcType=VARCHAR}||'%'
+			</if>
+			<if test="writer!=null">
+			AND writer LIKE '%'||#{writer, jdbcType=VARCHAR}||'%'
+			</if>
+			START WITH refno = 0
+			CONNECT BY PRIOR recordNum = refno
+			order siblings by recordNum desc
+			)
+   </select>
+   
+   
+   <insert id="insertBoard" parameterType="meetingboard">
+   		insert into meetingboard (recordNum,refno,recordTitle,recordContent,writer,recordViewCnt,recordRegdte,recordUptdte) values(meetingboard_seq.nextval,#{refno} ,#{recordTitle,jdbcType=VARCHAR}, #{recordContent,jdbcType=VARCHAR}, #{writer,jdbcType=VARCHAR}, 0, sysdate, sysdate)
+   </insert>
+   
+   	<insert id="insertFile" parameterType="meetingboardfile">
+					insert into meetingboardfile values(meetingboard_seq.currval,
+					#{mrFilePath}, #{mrFileName}, sysdate, sysdate, '')
+	</insert>
+   
+   <select id="getBoardDetail" parameterType="int" resultType="meetingboard" >
+   		SELECT mb.*, mf.mrFileName
+		FROM meetingboard mb, meetingboardfile mf
+		WHERE mb.recordNum = mf.recordNum(+)
+		and mb.recordNum = #{recordNum}
+   </select>
+   
+   <update id="readCountup" parameterType="int">
+   		update meetingboard
+		set recordViewCnt = recordViewCnt+1
+		where recordNum = #{recordNum}
+   </update>
+   
+   	<update id="updateBoard" parameterType="meetingboard">
+		UPDATE meetingboard 
+			SET recordTitle = #{recordTitle},
+				recordContent = #{recordContent},
+				recordUptdte = sysdate
+		WHERE recordNum = #{recordNum}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete
+		from meetingboard
+		where recordNum = #{recordNum}
+	</delete>
+
+
+	
+</mapper>

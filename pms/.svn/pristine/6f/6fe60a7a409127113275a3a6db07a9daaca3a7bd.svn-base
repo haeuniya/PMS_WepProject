@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- public List<Project> getProjectList(Project sch); -->
+<mapper namespace="pms.a01_Haeun.a03_DAO.ProjectDao">
+	<select id="getProjectList" resultType="project" parameterType="project">
+		SELECT *
+		FROM PROJECT 
+		WHERE 1=1
+		<if test="prjNo != null">  
+		AND prjNo LIKE '%'||#{prjNo}||'%'
+		</if>
+		<if test="prjName != null">  
+		AND prjName LIKE '%'||#{prjName}||'%'
+		</if>
+		<if test="prjPMNo != null">  
+		AND prjPMNo LIKE '%'||#{prjPMNo}||'%'
+		</if>
+	</select>
+	
+	<!-- public void insertProject(Project ins); -->
+	<insert id="insertProject" parameterType="project">
+		INSERT INTO PROJECT(prjNo, prjName, prjGoal, 
+		output, outRange, prjPMNo, prjImportant) 
+		VALUES ('P'||prjNo_seq.nextval,#{prjName},#{prjGoal},
+		#{output}, #{outRange}, #{prjPMNo}, #{prjImportant})
+	</insert>
+	
+	<!-- public Project getPrjCalendar(String prjNo); -->
+	<select id="getPrjCalendar" parameterType="string" resultType="project">
+		SELECT p.prjName, c.*
+		FROM project p, calendar c 
+		WHERE p.prjNo = c.prjNo
+		AND p.prjno = #{prjNo}	
+	</select>
+</mapper>
+
