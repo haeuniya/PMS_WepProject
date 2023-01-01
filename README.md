@@ -4,11 +4,11 @@ ProjectManagementProject_WepProject_JAVA+SPRING+ORACLE<br/>
 
 프로젝트 소개 및 개요 / 핵심 기술 / ERD 설계 / 제가 구현한 부분<br/>
 
-
+![슬라이드1](https://user-images.githubusercontent.com/82012381/210177594-49942e41-880f-4526-9ad0-ee2a93c2bd28.PNG)
 <img src="https://velog.velcdn.com/images/haeuniya/post/040a4ea8-beee-4ff3-ab1b-a2e1ed19623c/image.PNG">
 <img src="https://velog.velcdn.com/images/haeuniya/post/74577c5d-0a72-4937-918b-0b5ed950551f/image.PNG">
-<img src="https://velog.velcdn.com/images/haeuniya/post/3f7b0c7f-97a6-4b1e-bb20-01662170bdc4/image.PNG">
-<img src="https://velog.velcdn.com/images/haeuniya/post/f385ea5e-3fd1-478b-a3d0-d2707cb70a64/image.PNG">
+![슬라이드1](https://user-images.githubusercontent.com/82012381/210177594-49942e41-880f-4526-9ad0-ee2a93c2bd28.PNG)
+![슬라이드5](https://user-images.githubusercontent.com/82012381/210177621-10a2c2e3-46a9-413c-88b8-bb5a69ce8b61.PNG)
 <img src="https://velog.velcdn.com/images/haeuniya/post/602b7274-2113-4788-ae77-2c117028263d/image.PNG">
 <img src="https://velog.velcdn.com/images/haeuniya/post/b681eb1b-f226-438b-ace1-ce531231a11e/image.PNG">
 <img src="https://velog.velcdn.com/images/haeuniya/post/44200ac3-78f5-4c3a-965c-8cd46f9419f7/image.PNG">
@@ -50,3 +50,4 @@ ProjectManagementProject_WepProject_JAVA+SPRING+ORACLE<br/>
 <img src="https://velog.velcdn.com/images/haeuniya/post/3abe1823-5b49-47e4-a22b-380e8be1602c/image.PNG">
 <img src="https://velog.velcdn.com/images/haeuniya/post/c0999209-9e39-46cc-91a7-202a3358225b/image.PNG">
 <img src="https://velog.velcdn.com/images/haeuniya/post/3e267f60-9183-41d9-b740-5398ce63456f/image.PNG">
+
