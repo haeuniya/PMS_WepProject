@@ -5,9 +5,7 @@ ProjectManagementProject_WepProject_JAVA+SPRING+ORACLE<br/>
 프로젝트 소개 및 개요 / 핵심 기술 / ERD 설계 / 제가 구현한 부분<br/>
 
 ![슬라이드1](https://user-images.githubusercontent.com/82012381/210177594-49942e41-880f-4526-9ad0-ee2a93c2bd28.PNG)
-<img src="https://velog.velcdn.com/images/haeuniya/post/040a4ea8-beee-4ff3-ab1b-a2e1ed19623c/image.PNG">
 <img src="https://velog.velcdn.com/images/haeuniya/post/74577c5d-0a72-4937-918b-0b5ed950551f/image.PNG">
-![슬라이드1](https://user-images.githubusercontent.com/82012381/210177594-49942e41-880f-4526-9ad0-ee2a93c2bd28.PNG)
 ![슬라이드5](https://user-images.githubusercontent.com/82012381/210177621-10a2c2e3-46a9-413c-88b8-bb5a69ce8b61.PNG)
 <img src="https://velog.velcdn.com/images/haeuniya/post/602b7274-2113-4788-ae77-2c117028263d/image.PNG">
 <img src="https://velog.velcdn.com/images/haeuniya/post/b681eb1b-f226-438b-ace1-ce531231a11e/image.PNG">
